@@ -1,4 +1,7 @@
-const PARAKEET_MINIMUM_MACOS_VERSION = "15.5";
+// LOCAL FORK (local-models-unlocked): lowered from 15.5 to run sherpa-onnx
+// Parakeet/Nemotron streaming models on macOS 14.x. ONNX models are portable;
+// upstream pin assumed 15.5+. Revert if the sherpa binaries misbehave.
+const PARAKEET_MINIMUM_MACOS_VERSION = "14.0";
 const PARAKEET_UNSUPPORTED_OS_CODE = "PARAKEET_UNSUPPORTED_OS";
 
 function compareVersions(left, right) {
