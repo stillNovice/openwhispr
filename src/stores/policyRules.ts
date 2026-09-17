@@ -16,6 +16,19 @@ export interface PolicyDecisionSnapshot {
 }
 
 function managedPolicy(state: PolicyDecisionSnapshot): OrgPolicy | null {
+  // LOCAL FORK (local-models-unlocked): org policy can be opted out via
+  // localStorage flag so local dictation models stay selectable regardless of
+  // server-side allowlists. Guarded for node-run tests (no localStorage there).
+  try {
+    if (
+      typeof localStorage !== "undefined" &&
+      localStorage.getItem("openwhispr.forkIgnoreOrgPolicy") === "1"
+    ) {
+      return null;
+    }
+  } catch {
+    // storage unavailable — fall through to upstream behavior
+  }
   return state.status === "managed" && state.policy ? state.policy : null;
 }
 
